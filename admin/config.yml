@@ -3,7 +3,8 @@ backend:
   name: github
   repo: Mirmurat/clinxcode-site  # TODO: change to your GitHub org/repo
   branch: main
-  base_url: https://api.github.com
+  base_url: https://winter-thunder-81a2.akaymurat-a.workers.dev
+  auth_endpoint: auth
 media_folder: "assets"
 publish_mode: editorial_workflow
 
