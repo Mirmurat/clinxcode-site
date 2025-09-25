@@ -6,5 +6,12 @@
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
 
+# UTF-8 tipleri (mojibake'ı önler)
+/app.js
+  Content-Type: application/javascript; charset=utf-8
+/content/*
+  Content-Type: application/json; charset=utf-8
+
+# Sadece /admin için (Decap CMS)
 /admin*
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-eval' https://unpkg.com https://cdn.jsdelivr.net; connect-src 'self' https://api.github.com https://clinxcode-oauth.workers.dev; img-src 'self' data: https://avatars.githubusercontent.com; style-src 'self' 'unsafe-inline'; frame-ancestors 'self'; object-src 'none'; base-uri 'none'; upgrade-insecure-requests
