@@ -1,28 +1,35 @@
 const $ = (sel)=>document.querySelector(sel);
 const el = (tag, cls)=>{const x=document.createElement(tag); if(cls) x.className=cls; return x;};
+const dbg = (m)=>{ const d=$('#debug'); if(!d) return; d.style.display='block'; d.textContent=String(m); };
 
-async function loadJSON(path){ const r= await fetch(path); return r.json(); }
+async function loadJSON(path){
+  const r = await fetch(path, {cache:'no-store'});
+  if(!r.ok) throw new Error(`Fetch failed: ${path} → ${r.status}`);
+  return r.json();
+}
 
 (async ()=>{
   try{
-    const hero = await loadJSON('content/hero.json');
-    const erg = await loadJSON('content/ergebnisse.json');
-    const branchen = await loadJSON('content/branchen.json');
-    const agents = await loadJSON('content/agents.json');
-    const pakete = await loadJSON('content/pakete.json');
-    const preise = await loadJSON('content/preise.json');
-    const sicherheit = await loadJSON('content/sicherheit.json');
-    const faq = await loadJSON('content/faq.json');
-    const kontakt = await loadJSON('content/kontakt.json');
+    const [hero, erg, branchen, agents, pakete, preise, sicherheit, faq, kontakt] = await Promise.all([
+      loadJSON('content/hero.json'),
+      loadJSON('content/ergebnisse.json'),
+      loadJSON('content/branchen.json'),
+      loadJSON('content/agents.json'),
+      loadJSON('content/pakete.json'),
+      loadJSON('content/preise.json'),
+      loadJSON('content/sicherheit.json'),
+      loadJSON('content/faq.json'),
+      loadJSON('content/kontakt.json'),
+    ]);
 
-    // hero
+    // HERO
     $('#hero-headline').textContent = hero.headline;
     $('#hero-sub').textContent = hero.subline;
     const s2 = $('#hero-cta-secondary');
     s2.textContent = hero.cta_secondary;
     s2.href = hero.cta_secondary_link;
 
-    // ergebnisse
+    // Ergebnisse
     $('#erg-intro').textContent = erg.intro;
     const eg = $('#erg-grid');
     erg.bullets.forEach(b=>{
@@ -34,7 +41,7 @@ async function loadJSON(path){ const r= await fetch(path); return r.json(); }
     });
     $('#erg-note').textContent = erg.note || '';
 
-    // branchen
+    // Branchen
     const bg = $('#branchen-grid');
     branchen.categories.forEach(k=>{
       const c=el('div','card col-4 ibox');
@@ -44,7 +51,7 @@ async function loadJSON(path){ const r= await fetch(path); return r.json(); }
       w.appendChild(s); w.appendChild(p); c.appendChild(i); c.appendChild(w); bg.appendChild(c);
     });
 
-    // agents
+    // Agenten
     const ag = $('#agents-grid');
     agents.items.forEach(a=>{
       const c=el('div','card col-6'); const t=el('h3'); t.textContent = a.name;
@@ -52,7 +59,7 @@ async function loadJSON(path){ const r= await fetch(path); return r.json(); }
       c.appendChild(t); c.appendChild(ul); ag.appendChild(c);
     });
 
-    // pakete
+    // Pakete
     const pg = $('#pakete-grid');
     pakete.items.forEach(p=>{
       const c=el('div','card col-4');
@@ -62,7 +69,7 @@ async function loadJSON(path){ const r= await fetch(path); return r.json(); }
       c.appendChild(t); c.appendChild(ul); pg.appendChild(c);
     });
 
-    // preise
+    // Preise
     const prg = $('#preise-grid');
     preise.plans.forEach(pl=>{
       const c=el('div','card col-4');
@@ -78,7 +85,7 @@ async function loadJSON(path){ const r= await fetch(path); return r.json(); }
     });
     $('#preise-note').textContent = preise.note;
 
-    // sicherheit
+    // Sicherheit
     const sg = $('#sich-grid');
     sicherheit.chips.forEach(ch=>{
       const c=el('div','card col-4 ibox'); const i=el('div','icon'); i.textContent='🛡️';
@@ -87,13 +94,14 @@ async function loadJSON(path){ const r= await fetch(path); return r.json(); }
       w.appendChild(s); w.appendChild(p); c.appendChild(i); c.appendChild(w); sg.appendChild(c);
     });
 
-    // kontakt + yıl
+    // Kontakt
     $('#k-address').textContent = kontakt.address;
     $('#k-email').textContent = kontakt.email; $('#k-email').href = 'mailto:'+kontakt.email;
     $('#k-phone').textContent = kontakt.phone; $('#k-phone').href = 'tel:'+kontakt.phone.replace(/\s+/g,'');
     const kc = $('#k-calendly'); if (kc) kc.href = kontakt.calendly;
-    document.getElementById('y').textContent = new Date().getFullYear();
+    $('#y').textContent = new Date().getFullYear();
   }catch(e){
     console.error(e);
+    dbg(e && e.stack ? e.stack : e);
   }
 })();
