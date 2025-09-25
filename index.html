@@ -19,10 +19,11 @@
     .btn.primary{background:linear-gradient(90deg,#2563eb,#7c3aed);color:#fff;border-color:transparent}
     .section{margin:72px 0}.section h2{font-size:30px;margin:0 0 16px}
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:22px}.card{grid-column:span 12;background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:var(--shadow)}
-    @media(min-width:960px){.col-3{grid-column:span 3}.col-4{grid-column:span 4}.col-6{grid-column:span 6}.col-12{grid-column:span 12}}
+    @media(min-width:960px){.col-4{grid-column:span 4}.col-6{grid-column:span 6}}
     .ibox{display:flex;gap:14px;align-items:flex-start}.icon{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#60a5fa,#a78bfa);display:grid;place-items:center;color:#fff;font-weight:900}
     .price{font-size:24px;font-weight:900;margin:6px 0 10px}.incl{color:var(--muted);font-size:14px;margin-bottom:12px}.list{margin:0 0 12px;padding-left:18px}.list li{margin:6px 0}
     footer{margin:64px 0 10px;color:var(--muted);font-size:14px} footer a{text-decoration:underline;color:var(--muted)}
+    #debug{white-space:pre-wrap;border:1px solid var(--border);border-radius:10px;padding:10px;background:#fff;margin-top:10px;display:none}
   </style>
 </head>
 <body>
@@ -42,18 +43,16 @@
     </div>
   </header>
 
-  <!-- HERO -->
   <section class="hero">
-    <!-- Varsayılan metni bırakıyoruz; app.js gelince üzerine yazar -->
     <h1 id="hero-headline">Alles, was Sie brauchen, um mit KI zu skalieren.</h1>
     <p class="sub" id="hero-sub">Wir liefern fertige AI-Agenten für Buchungen, Service und Bewertungen – schnell, sicher und messbar.</p>
     <div class="cta">
       <a class="btn primary" href="#preise" id="hero-cta-primary">Jetzt starten</a>
       <a class="btn" id="hero-cta-secondary" href="https://calendly.com/clinxcode" target="_blank" rel="noopener">Beratungstermin buchen</a>
     </div>
+    <pre id="debug"></pre>
   </section>
 
-  <!-- Ergebnisse -->
   <section id="ergebnisse" class="section">
     <h2>Nachweisbare Ergebnisse</h2>
     <p class="sub" id="erg-intro"></p>
@@ -61,38 +60,32 @@
     <p class="sub" id="erg-note"></p>
   </section>
 
-  <!-- Branchen -->
   <section id="branchen" class="section">
     <h2>Für Ihre Branche optimiert</h2>
     <div class="grid" id="branchen-grid"></div>
   </section>
 
-  <!-- Agenten -->
   <section id="katalog" class="section">
     <h2>Agenten-Katalog (Sofort einsatzbereit)</h2>
     <div class="grid" id="agents-grid"></div>
   </section>
 
-  <!-- Pakete -->
   <section id="pakete" class="section">
     <h2>Pakete & Umfang</h2>
     <div class="grid" id="pakete-grid"></div>
   </section>
 
-  <!-- Preise -->
   <section id="preise" class="section">
     <h2>Preise</h2>
     <div class="grid" id="preise-grid"></div>
     <p class="sub" id="preise-note"></p>
   </section>
 
-  <!-- Sicherheit -->
   <section id="sicherheit" class="section">
     <h2>Sicherheit & Betrieb (EU)</h2>
     <div class="grid" id="sich-grid"></div>
   </section>
 
-  <!-- Kontakt & FAQ -->
   <section id="kontakt" class="section">
     <h2>Kontakt & FAQ</h2>
     <div class="grid">
@@ -113,7 +106,6 @@
   <footer>© <span id="y"></span> clinxcode. Alle Rechte vorbehalten. · <a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a> · <a href="/agb.html">AGB</a> · <a href="/refund.html">Rückerstattung</a></footer>
 </div>
 
-<!-- Dış JS: CSP uyumlu -->
 <script src="/app.js" defer></script>
 </body>
 </html>
