@@ -1,0 +1,135 @@
+
+backend:
+  name: github
+  repo: Mirmurat/clinxcode-site  # TODO: change to your GitHub org/repo
+  branch: main
+  base_url: https://api.github.com
+media_folder: "assets"
+publish_mode: editorial_workflow
+
+collections:
+  - name: "hero"
+    label: "Hero"
+    files:
+      - file: "content/hero.json"
+        label: "Hero Section"
+        fields:
+          - { label: Headline, name: headline, widget: string }
+          - { label: Subline, name: subline, widget: text }
+          - { label: Primary CTA Text, name: cta_primary, widget: string, default: "Jetzt starten" }
+          - { label: Secondary CTA Text, name: cta_secondary, widget: string, default: "Beratungstermin buchen" }
+          - { label: Secondary CTA Link, name: cta_secondary_link, widget: string, default: "https://calendly.com/clinxcode" }
+          - { label: Hero Bild, name: hero_img, widget: image, choose_url: false, default: "assets/hero.webp" }
+
+  - name: "ergebnisse"
+    label: "Ergebnisse"
+    files:
+      - file: "content/ergebnisse.json"
+        label: "Nachweisbare Ergebnisse"
+        fields:
+          - { label: Intro, name: intro, widget: text }
+          - label: Punkte
+            name: bullets
+            widget: list
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Text, name: text, widget: text }
+          - { label: Beispiel-Notiz, name: note, widget: string, required: false }
+
+  - name: "branchen"
+    label: "Branchen"
+    files:
+      - file: "content/branchen.json"
+        label: "Branchenliste"
+        fields:
+          - label: Kategorien
+            name: categories
+            widget: list
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Kurztext, name: text, widget: text }
+              - { label: Icon/Bild, name: img, widget: image, required: false }
+
+  - name: "agents"
+    label: "Agenten"
+    files:
+      - file: "content/agents.json"
+        label: "Agenten-Katalog"
+        fields:
+          - label: Agenten
+            name: items
+            widget: list
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Beschreibung, name: desc, widget: text }
+              - { label: Ergebnis, name: impact, widget: string }
+              - { label: Bild, name: img, widget: image, required: false }
+
+  - name: "pakete"
+    label: "Pakete & Umfang"
+    files:
+      - file: "content/pakete.json"
+        label: "Paket-Karten"
+        fields:
+          - label: Pakete
+            name: items
+            widget: list
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Punkte, name: features, widget: list, field: {label: Punkt, name: item, widget: string} }
+              - { label: Badge, name: badge, widget: string, required: false }
+
+  - name: "preise"
+    label: "Preise"
+    files:
+      - file: "content/preise.json"
+        label: "Preistablos"
+        fields:
+          - label: Pläne
+            name: plans
+            widget: list
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Preis, name: price, widget: string }
+              - { label: SMS inkl., name: sms, widget: number }
+              - { label: Start-Link, name: start_url, widget: string }
+              - { label: Setup-Link, name: setup_url, widget: string }
+              - { label: Badge, name: badge, widget: string, required: false }
+          - { label: Mehrkosten-Notu, name: note, widget: text }
+
+  - name: "sicherheit"
+    label: "Sicherheit & Betrieb"
+    files:
+      - file: "content/sicherheit.json"
+        label: "Sicherheitskarten"
+        fields:
+          - label: Chips
+            name: chips
+            widget: list
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Text, name: text, widget: text }
+
+  - name: "faq"
+    label: "FAQ"
+    files:
+      - file: "content/faq.json"
+        label: "Sıkça Sorulanlar"
+        fields:
+          - label: Sorular
+            name: items
+            widget: list
+            fields:
+              - { label: Soru, name: q, widget: string }
+              - { label: Cevap, name: a, widget: text }
+
+  - name: "kontakt"
+    label: "Kontakt"
+    files:
+      - file: "content/kontakt.json"
+        label: "İletişim"
+        fields:
+          - { label: Adresse, name: address, widget: string }
+          - { label: E-Mail, name: email, widget: string }
+          - { label: Telefon, name: phone, widget: string }
+          - { label: Calendly, name: calendly, widget: string, default: "https://calendly.com/clinxcode" }

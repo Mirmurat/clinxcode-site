@@ -1,0 +1,16 @@
+{
+  "chips": [
+    {
+      "title": "GDPR/KVKK",
+      "text": "Datenminimalismus, AVV, EU‑Region."
+    },
+    {
+      "title": "Cost‑Firewall",
+      "text": "SMS/WA/LLM Limits & Auto‑Lite Mode."
+    },
+    {
+      "title": "SLA",
+      "text": "P1 ≤ 5 Min erste Antwort, Lösung ≤ 4 Std."
+    }
+  ]
+}

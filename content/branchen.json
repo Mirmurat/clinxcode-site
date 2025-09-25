@@ -1,0 +1,34 @@
+{
+  "categories": [
+    {
+      "name": "Hotels & Restaurants",
+      "text": "Buchungen, Upsells, Bewertungen nach dem Besuch.",
+      "img": "assets/branchen/hotels.webp"
+    },
+    {
+      "name": "Beauty & Friseure",
+      "text": "Termin‑Bestätigung, No‑Show‑Reduktion, Rebooking.",
+      "img": "assets/branchen/beauty.webp"
+    },
+    {
+      "name": "Gesundheit & Kliniken",
+      "text": "DSGVO‑konforme Erinnerungen, Nachsorge.",
+      "img": "assets/branchen/gesundheit.webp"
+    },
+    {
+      "name": "Einzelhandel & E‑Commerce",
+      "text": "Lead‑Qualifizierung, Bestell‑ & Service‑Chat, Warenkorb‑Reminder.",
+      "img": "assets/branchen/retail.webp"
+    },
+    {
+      "name": "Industrie & B2B",
+      "text": "Angebots‑Anfragen, Status‑Updates, Dokument‑Assistenz.",
+      "img": "assets/branchen/b2b.webp"
+    },
+    {
+      "name": "Fitness & Wellness",
+      "text": "Mitgliedschafts‑Flows, Reviews, Rückgewinnung.",
+      "img": "assets/branchen/fitness.webp"
+    }
+  ]
+}

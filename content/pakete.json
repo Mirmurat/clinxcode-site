@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "title": "Basic",
+      "features": [
+        "1 Agent aus dem Katalog",
+        "ChatBot Lite",
+        "Termin‑Erinnerungen",
+        "Mini‑Report"
+      ]
+    },
+    {
+      "title": "Pro Essentials",
+      "features": [
+        "2 Agenten",
+        "Mini‑Kundenportal",
+        "Prioritäts‑Support"
+      ],
+      "badge": "Meistgewählt"
+    },
+    {
+      "title": "Pro Plus",
+      "features": [
+        "4 Agenten + RAG Mehrsprachigkeit",
+        "WhatsApp‑Flows",
+        "Erweiterte Reports"
+      ]
+    },
+    {
+      "title": "Individuell",
+      "features": [
+        "Maßgeschneiderter AI‑Agent (Kanäle, Prompts, Integrationen, Reports)"
+      ]
+    }
+  ]
+}
