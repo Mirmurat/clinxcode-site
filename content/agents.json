@@ -1,28 +1,6 @@
 {
   "items": [
-    {
-      "name": "Reservierungs‑Assistent (Telefon/SMS)",
-      "desc": "Bestätigt Termine & sendet Erinnerungen (T‑24/T‑3/T‑2). Auto‑Rebooking bei Absage.",
-      "impact": "Weniger Ausfälle (−15% No‑Shows)",
-      "img": "assets/agents/reservierungsassistent.webp"
-    },
-    {
-      "name": "WhatsApp‑Flow Bot",
-      "desc": "Menü‑Dialoge, schnelle Qualifizierung. Mehrsprachig (DE/EN/TR).",
-      "impact": "+10–20% mehr Anfragen",
-      "img": "assets/agents/whatsappflow.webp"
-    },
-    {
-      "name": "Web‑ChatBot Lite",
-      "desc": "FAQ & Buchungsübergabe. LLM‑Lite‑Mode spart Kosten.",
-      "impact": "Schnellere Antworten",
-      "img": "assets/agents/webchatlite.webp"
-    },
-    {
-      "name": "Review‑Booster",
-      "desc": "Automatisierte Bewertungsanfragen. Link‑Rotation (Google/Tripadvisor).",
-      "impact": "Mehr Sichtbarkeit",
-      "img": "assets/agents/reviewbooster.webp"
-    }
+    {"name":"Booking Bot","desc":"Termine & Reservierungen 24/7","impact":"+ mehr Buchungen"},
+    {"name":"Reminder Bot","desc":"No-Shows senken (T-24/T-3/T-2)","impact":"- weniger No-Shows"}
   ]
 }
