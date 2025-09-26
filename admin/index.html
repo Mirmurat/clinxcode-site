@@ -4,10 +4,27 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>clinxcode Admin</title>
-  <!-- Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <!-- DEBUG: hata olursa ekranda göster -->
+  <style>
+    body{font-family:system-ui,Arial,sans-serif;margin:32px}
+    #err{white-space:pre-wrap;color:#b91c1c;background:#fee2e2;border:1px solid #fecaca;padding:12px;border-radius:8px;display:none}
+  </style>
 </head>
 <body>
-  <script>CMS.init();</script>
+  <div id="err"></div>
+
+  <!-- Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    // Hata yakala ve ekranda göster
+    window.onerror = function(msg,src,ln,col,err){
+      const box = document.getElementById('err');
+      box.style.display = 'block';
+      box.textContent = 'CMS-Fehler: ' + (err && err.stack ? err.stack : msg);
+    };
+    // CMS başlat
+    CMS.init();
+  </script>
 </body>
 </html>
