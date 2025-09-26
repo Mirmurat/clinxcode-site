@@ -1,16 +1,6 @@
 {
   "items": [
-    {
-      "q": "Was passiert nach dem Kauf?",
-      "a": "Sie erhalten eine E‑Mail mit den ersten Schritten. Wir richten alles ein."
-    },
-    {
-      "q": "Wie schnell geht es live?",
-      "a": "Meist in 48–72 Stunden."
-    },
-    {
-      "q": "Ist das DSGVO‑konform?",
-      "a": "Ja. Verarbeitung in der EU, Auftragsverarbeitung, Datenminimalismus."
-    }
+    {"q":"Wie schnell sind wir live?","a":"In 48–72 Stunden."},
+    {"q":"Welche Ergebnisse?","a":"+15% Reservierungen, −15% No-Shows (Ziel)."}
   ]
 }
