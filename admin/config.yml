@@ -8,7 +8,7 @@ backend:
 media_folder: "assets"        # dosyalar depoya buraya kaydolur
 public_folder: "/assets"      # siteden erişim yolu
 
-publish_mode: editorial_workflow
+publish_mode: simple
 
 collections:
   - name: "hero"
