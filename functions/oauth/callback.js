@@ -1,5 +1,5 @@
 export async function onRequest({ env, request }) {
-  const origins = (env.ALLOWED_ORIGINS || 'https://clinxcode.com').split(',').map(s=>s.trim());
+  const origins = (env.ALLOWED_ORIGINS || 'https://clinxcode.com').split(',').map(s => s.trim());
   const origin  = request.headers.get('Origin') || origins[0];
   const allow   = origins.includes(origin) ? origin : origins[0];
 
@@ -12,8 +12,8 @@ export async function onRequest({ env, request }) {
   }
 
   const body = new URLSearchParams({
-    client_id:     env.Ov23liie6U56gCNxlgjZ,
-    client_secret: env.986fe05965c5b99c94a3c6d0b028b866d64a5ee1,
+    client_id:     env.GITHUB_CLIENT_ID,
+    client_secret: env.GITHUB_CLIENT_SECRET,
     code
   });
 
@@ -28,4 +28,3 @@ export async function onRequest({ env, request }) {
     headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': allow }
   });
 }
-
