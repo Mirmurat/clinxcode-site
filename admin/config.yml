@@ -1,32 +1,36 @@
-
 backend:
   name: github
   repo: Mirmurat/clinxcode-site
   branch: main
   base_url: https://clinxcode.com/oauth
   auth_endpoint: auth
-media_folder: "assets"
+
+media_folder: "assets"        # dosyalar depoya buraya kaydolur
+public_folder: "/assets"      # siteden erişim yolu
+
 publish_mode: editorial_workflow
 
 collections:
   - name: "hero"
     label: "Hero"
     files:
-      - file: "content/hero.json"
+      - name: "hero"                      # ← ZORUNLU
         label: "Hero Section"
+        file: "content/hero.json"
         fields:
           - { label: Headline, name: headline, widget: string }
           - { label: Subline, name: subline, widget: text }
           - { label: Primary CTA Text, name: cta_primary, widget: string, default: "Jetzt starten" }
           - { label: Secondary CTA Text, name: cta_secondary, widget: string, default: "Beratungstermin buchen" }
           - { label: Secondary CTA Link, name: cta_secondary_link, widget: string, default: "https://calendly.com/clinxcode" }
-          - { label: Hero Bild, name: hero_img, widget: image, choose_url: false, default: "assets/hero.webp" }
+          - { label: Hero Bild, name: hero_img, widget: image, choose_url: false, default: "/assets/hero.webp" }
 
   - name: "ergebnisse"
     label: "Ergebnisse"
     files:
-      - file: "content/ergebnisse.json"
+      - name: "ergebnisse"
         label: "Nachweisbare Ergebnisse"
+        file: "content/ergebnisse.json"
         fields:
           - { label: Intro, name: intro, widget: text }
           - label: Punkte
@@ -40,8 +44,9 @@ collections:
   - name: "branchen"
     label: "Branchen"
     files:
-      - file: "content/branchen.json"
+      - name: "branchen"
         label: "Branchenliste"
+        file: "content/branchen.json"
         fields:
           - label: Kategorien
             name: categories
@@ -54,8 +59,9 @@ collections:
   - name: "agents"
     label: "Agenten"
     files:
-      - file: "content/agents.json"
+      - name: "agents"
         label: "Agenten-Katalog"
+        file: "content/agents.json"
         fields:
           - label: Agenten
             name: items
@@ -69,22 +75,24 @@ collections:
   - name: "pakete"
     label: "Pakete & Umfang"
     files:
-      - file: "content/pakete.json"
+      - name: "pakete"
         label: "Paket-Karten"
+        file: "content/pakete.json"
         fields:
           - label: Pakete
             name: items
             widget: list
             fields:
               - { label: Titel, name: title, widget: string }
-              - { label: Punkte, name: features, widget: list, field: {label: Punkt, name: item, widget: string} }
+              - { label: Punkte, name: features, widget: list, field: { label: Punkt, name: item, widget: string } }
               - { label: Badge, name: badge, widget: string, required: false }
 
   - name: "preise"
     label: "Preise"
     files:
-      - file: "content/preise.json"
+      - name: "preise"
         label: "Preistablos"
+        file: "content/preise.json"
         fields:
           - label: Pläne
             name: plans
@@ -101,8 +109,9 @@ collections:
   - name: "sicherheit"
     label: "Sicherheit & Betrieb"
     files:
-      - file: "content/sicherheit.json"
+      - name: "sicherheit"
         label: "Sicherheitskarten"
+        file: "content/sicherheit.json"
         fields:
           - label: Chips
             name: chips
@@ -114,8 +123,9 @@ collections:
   - name: "faq"
     label: "FAQ"
     files:
-      - file: "content/faq.json"
+      - name: "faq"
         label: "Sıkça Sorulanlar"
+        file: "content/faq.json"
         fields:
           - label: Sorular
             name: items
@@ -127,8 +137,9 @@ collections:
   - name: "kontakt"
     label: "Kontakt"
     files:
-      - file: "content/kontakt.json"
+      - name: "kontakt"
         label: "İletişim"
+        file: "content/kontakt.json"
         fields:
           - { label: Adresse, name: address, widget: string }
           - { label: E-Mail, name: email, widget: string }
