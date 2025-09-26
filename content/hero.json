@@ -1,8 +1,8 @@
 {
   "headline": "Alles, was Sie brauchen, um mit KI zu skalieren.",
-  "subline": "Wir liefern fertige AI‑Agenten für Buchungen, Service und Bewertungen – schnell, sicher und messbar.",
+  "subline": "Wir liefern fertige AI-Agenten für Buchungen, Service und Bewertungen – schnell, sicher und messbar.",
   "cta_primary": "Jetzt starten",
   "cta_secondary": "Beratungstermin buchen",
   "cta_secondary_link": "https://calendly.com/clinxcode",
-  "hero_img": "assets/hero.webp"
+  "hero_img": "/assets/hero.webp"
 }
