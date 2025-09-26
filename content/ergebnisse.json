@@ -1,18 +1,9 @@
 {
-  "intro": "Innerhalb von 2 Wochen erste Effekte – mehr Reservierungen, weniger No‑Shows.",
+  "intro": "Innerhalb von 2 Wochen erste Effekte – mehr Reservierungen, weniger No-Shows.",
   "bullets": [
-    {
-      "title": "Mehr Buchungen",
-      "text": "WhatsApp‑Flows & Erinnerungen holen mehr Termine."
-    },
-    {
-      "title": "Weniger No‑Shows",
-      "text": "T‑24/T‑3/T‑2 Erinnerungen senken Ausfälle."
-    },
-    {
-      "title": "Schnellere Antworten",
-      "text": "ChatBot Lite antwortet sofort auf häufige Fragen."
-    }
+    {"title":"Mehr Buchungen","text":"durch WhatsApp-Flows & Erinnerungen"},
+    {"title":"Weniger No-Shows","text":"mit T-24/T-3/T-2 Erinnerungen"},
+    {"title":"Schnellere Antworten","text":"dank ChatBot Lite"}
   ],
-  "note": "Beispielziel: +15% Reservierungen und −15% No‑Shows in 14 Tagen (abhängig von Ausgangslage)."
+  "note": "+15%/-15% Beispielwert (Ziel)."
 }
