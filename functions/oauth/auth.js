@@ -14,7 +14,7 @@ export async function onRequest({ env, request }) {
   }
 
   const u = new URL('https://github.com/login/oauth/authorize');
-  u.searchParams.set('client_id', env.Ov23liie6U56gCNxlgjZ);
+  u.searchParams.set('client_id', env.GITHUB_CLIENT_ID);
   u.searchParams.set('scope', 'repo');
   return Response.redirect(u.toString(), 302);
 }
