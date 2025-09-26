@@ -1,27 +1,8 @@
 {
   "plans": [
-    {
-      "title": "Basic",
-      "price": "€129/Monat",
-      "sms": 80,
-      "start_url": "https://buy.stripe.com/bJecN6cnl9cHbF7cxWdEs01",
-      "setup_url": "https://buy.stripe.com/bJefZi3QPcoT9wZ69ydEs04"
-    },
-    {
-      "title": "Pro Essentials",
-      "price": "€219/Monat",
-      "sms": 200,
-      "start_url": "https://buy.stripe.com/14AeVe1IHcoT8sVbtSdEs02",
-      "setup_url": "https://buy.stripe.com/bJeaEY7311Kf38BgOcdEs05",
-      "badge": "Meistgewählt"
-    },
-    {
-      "title": "Pro Plus",
-      "price": "€399/Monat",
-      "sms": 700,
-      "start_url": "https://buy.stripe.com/dRm14ogDBbkP10teG4dEs03",
-      "setup_url": "https://buy.stripe.com/28E9AU3QPdsXaB3btSdEs06"
-    }
+    {"title":"Basic","price":"€129/Monat","sms":80,"start_url":"https://buy.stripe.com/bJecN6cnl9cHbF7cxWdEs01","setup_url":"https://buy.stripe.com/bJefZi3QPcoT9wZ69ydEs04"},
+    {"title":"Pro Essentials","price":"€219/Monat","sms":200,"start_url":"https://buy.stripe.com/14AeVe1IHcoT8sVbtSdEs02","setup_url":"https://buy.stripe.com/bJeaEY7311Kf38BgOcdEs05","badge":"Meistgewählt"},
+    {"title":"Pro Plus","price":"€399/Monat","sms":700,"start_url":"https://buy.stripe.com/dRm14ogDBbkP10teG4dEs03","setup_url":"https://buy.stripe.com/28E9AU3QPdsXaB3btSdEs06"}
   ],
-  "note": "Hinweis: Über Inklusivmengen: SMS/WA = Kosten × 1,2 (Mindestpaket €10). LLM über Limit → Auto‑Lite Mode. Wie werden Mehrkosten berechnet?"
+  "note": "Über Inklusivmengen: SMS/WA = Kosten × 1,2 (Mindestpaket €10). LLM über Limit → Auto-Lite Mode."
 }
