@@ -5,16 +5,15 @@ backend:
   base_url: https://clinxcode.com/oauth
   auth_endpoint: auth
 
-media_folder: "assets"        # dosyalar depoya buraya kaydolur
-public_folder: "/assets"      # siteden erişim yolu
-
+media_folder: "assets"
+public_folder: "/assets"
 publish_mode: simple
 
 collections:
   - name: "hero"
     label: "Hero"
     files:
-      - name: "hero"                      # ← ZORUNLU
+      - name: "hero"
         label: "Hero Section"
         file: "content/hero.json"
         fields:
@@ -35,7 +34,7 @@ collections:
           - { label: Intro, name: intro, widget: text }
           - label: Punkte
             name: bullets
-            widget: list
+            widget: list           # ← dizi = [{title,text}]
             fields:
               - { label: Titel, name: title, widget: string }
               - { label: Text, name: text, widget: text }
@@ -50,7 +49,7 @@ collections:
         fields:
           - label: Kategorien
             name: categories
-            widget: list
+            widget: list           # ← dizi = [{name,text,img?}]
             fields:
               - { label: Name, name: name, widget: string }
               - { label: Kurztext, name: text, widget: text }
@@ -65,7 +64,7 @@ collections:
         fields:
           - label: Agenten
             name: items
-            widget: list
+            widget: list           # ← dizi = [{name,desc,impact,img?}]
             fields:
               - { label: Name, name: name, widget: string }
               - { label: Beschreibung, name: desc, widget: text }
@@ -81,10 +80,14 @@ collections:
         fields:
           - label: Pakete
             name: items
-            widget: list
+            widget: list           # ← dizi = [{title,features[],badge?}]
             fields:
               - { label: Titel, name: title, widget: string }
-              - { label: Punkte, name: features, widget: list, field: { label: Punkt, name: item, widget: string } }
+              - label: Punkte
+                name: features
+                widget: list       # ← DİZİ = ["madde1","madde2"]
+                summary: "{{fields.item}}"
+                field: { label: Punkt, name: item, widget: string }
               - { label: Badge, name: badge, widget: string, required: false }
 
   - name: "preise"
@@ -96,7 +99,7 @@ collections:
         fields:
           - label: Pläne
             name: plans
-            widget: list
+            widget: list           # ← dizi = [{title,price,sms,start_url,setup_url,badge?}]
             fields:
               - { label: Titel, name: title, widget: string }
               - { label: Preis, name: price, widget: string }
@@ -115,7 +118,7 @@ collections:
         fields:
           - label: Chips
             name: chips
-            widget: list
+            widget: list           # ← dizi = [{title,text}]
             fields:
               - { label: Titel, name: title, widget: string }
               - { label: Text, name: text, widget: text }
@@ -129,7 +132,7 @@ collections:
         fields:
           - label: Sorular
             name: items
-            widget: list
+            widget: list           # ← dizi = [{q,a}]
             fields:
               - { label: Soru, name: q, widget: string }
               - { label: Cevap, name: a, widget: text }
