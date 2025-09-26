@@ -1,7 +1,7 @@
 
 backend:
   name: github
-  repo: Mirmurat/clinxcode-site  # TODO: change to your GitHub org/repo
+  repo: Mirmurat/clinxcode-site
   branch: main
   base_url: https://clinxcode.com/oauth
   auth_endpoint: auth
