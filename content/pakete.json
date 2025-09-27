@@ -1,7 +1,7 @@
 {
   "items": [
-    {"title":"Basic","features":["1 Agent","ChatBot Lite","Termin-Erinnerungen","Mini-Report"]},
-    {"title":"Pro Essentials","features":["2 Agenten","Mini-Kundenportal","Prioritäts-Support"],"badge":"Meistgewählt"},
-    {"title":"Pro Plus","features":["4 Agenten","RAG Mehrsprachigkeit","WhatsApp-Flows","erweiterte Reports"]}
+    { "title": "Basic", "features": ["1 Agent", "ChatBot Lite", "Termin-Erinnerungen", "Mini-Report"] },
+    { "title": "Pro Essentials", "features": ["2 Agenten", "Mini-Kundenportal", "Prioritäts-Support"], "badge": "Meistgewählt" },
+    { "title": "Pro Plus", "features": ["4 Agenten", "RAG Mehrsprachigkeit", "WhatsApp-Flows", "Erweiterte Reports"] }
   ]
 }
