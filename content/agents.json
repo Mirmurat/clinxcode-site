@@ -1,6 +1,8 @@
 {
   "items": [
-    {"name":"Booking Bot","desc":"Termine & Reservierungen 24/7","impact":"+ mehr Buchungen"},
-    {"name":"Reminder Bot","desc":"No-Shows senken (T-24/T-3/T-2)","impact":"- weniger No-Shows"}
+    { "name": "Booking Bot", "desc": "Termine & Reservierungen 24/7", "impact": "+ mehr Buchungen" },
+    { "name": "Reminder Bot", "desc": "No-Shows senken (T-24/T-3/T-2)", "impact": "− weniger No-Shows" },
+    { "name": "Review Bot", "desc": "Zufriedene Gäste zu Bewertungen leiten", "impact": "+ mehr Sterne" },
+    { "name": "WhatsApp Flows", "desc": "Kanallarda hızlı otomasyon", "impact": "Zeitersparnis im Team" }
   ]
 }
