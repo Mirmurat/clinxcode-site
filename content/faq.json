@@ -1,6 +1,7 @@
 {
   "items": [
-    {"q":"Wie schnell sind wir live?","a":"In 48–72 Stunden."},
-    {"q":"Welche Ergebnisse?","a":"+15% Reservierungen, −15% No-Shows (Ziel)."}
+    { "q": "Wie schnell sind wir live?", "a": "In 48–72 Stunden." },
+    { "q": "Welche Ergebnisse?", "a": "+15% Reservierungen, −15% No-Shows (Ziel)." },
+    { "q": "Kann ich eigene Anbieter verbinden (BYO)?", "a": "Ja, optional Brevo/Twilio/OpenAI anahtarlarınızı bağlayabilirsiniz." }
   ]
 }
