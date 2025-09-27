@@ -4,7 +4,6 @@ const J  = async (p) => (await fetch(p)).json();
 
 (async () => {
   try {
-    // JSON'ları yükle
     const hero       = await J('/content/hero.json');
     const erg        = await J('/content/ergebnisse.json');
     const branchen   = await J('/content/branchen.json');
