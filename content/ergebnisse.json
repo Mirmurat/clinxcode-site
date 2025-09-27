@@ -1,9 +1,9 @@
 {
   "intro": "Innerhalb von 2 Wochen erste Effekte – mehr Reservierungen, weniger No-Shows.",
   "bullets": [
-    {"title":"Mehr Buchungen","text":"durch WhatsApp-Flows & Erinnerungen"},
-    {"title":"Weniger No-Shows","text":"mit T-24/T-3/T-2 Erinnerungen"},
-    {"title":"Schnellere Antworten","text":"dank ChatBot Lite"}
+    { "title": "Mehr Buchungen", "text": "durch WhatsApp-Flows & Erinnerungen" },
+    { "title": "Weniger No-Shows", "text": "mit T-24/T-3/T-2 Erinnerungen" },
+    { "title": "Schnellere Antworten", "text": "dank ChatBot Lite" }
   ],
   "note": "+15%/-15% Beispielwert (Ziel)."
 }
