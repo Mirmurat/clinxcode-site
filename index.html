@@ -1,111 +1,107 @@
-<!doctype html>
-<html lang="de">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>clinxcode – AI-Agenten für KMU</title>
-  <meta name="description" content="Managed AI-Agenten für KMU in Wien. Nachweisbare Ergebnisse: mehr Reservierungen, weniger No-Shows." />
-  <style>
-    :root{--bg:#f8fafc;--text:#0f172a;--muted:#475569;--panel:#fff;--border:#e2e8f0;--primary:#2563eb;--shadow:0 10px 24px rgba(15,23,42,.08)}
-    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-    a{color:inherit;text-decoration:none} .wrap{max-width:1160px;margin:0 auto;padding:28px}
-    header{position:sticky;top:0;background:rgba(248,250,252,.8);backdrop-filter:saturate(180%) blur(8px);z-index:20;border-bottom:1px solid var(--border)}
-    header>.row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
-    .brand{display:flex;align-items:center;gap:10px}.logo{width:34px;height:34px;border-radius:9px;background:conic-gradient(from 180deg at 50% 50%, #60a5fa,#a78bfa,#22d3ee,#60a5fa)}.name{font-weight:800}
-    .nav a{opacity:.9;margin-left:18px}
-    .hero{border:1px solid var(--border);border-radius:24px;background:radial-gradient(1200px 400px at 10% -10%, #dbeafe, transparent),radial-gradient(800px 300px at 110% 10%, #e9d5ff, transparent),#eef2ff;box-shadow:var(--shadow);padding:56px 32px;margin:18px 0 34px}
-    h1{font-size:40px;line-height:1.2;margin:0 0 12px}.sub{color:var(--muted)} .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;height:46px;padding:0 18px;border-radius:12px;border:1px solid var(--border);background:#fff;color:var(--text);font-weight:800;box-shadow:var(--shadow)}
-    .btn.primary{background:linear-gradient(90deg,#2563eb,#7c3aed);color:#fff;border-color:transparent}
-    .section{margin:72px 0}.section h2{font-size:30px;margin:0 0 16px}
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:22px}.card{grid-column:span 12;background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:var(--shadow)}
-    @media(min-width:960px){.col-4{grid-column:span 4}.col-6{grid-column:span 6}}
-    .ibox{display:flex;gap:14px;align-items:flex-start}.icon{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#60a5fa,#a78bfa);display:grid;place-items:center;color:#fff;font-weight:900}
-    .price{font-size:24px;font-weight:900;margin:6px 0 10px}.incl{color:var(--muted);font-size:14px;margin-bottom:12px}.list{margin:0 0 12px;padding-left:18px}.list li{margin:6px 0}
-    footer{margin:64px 0 10px;color:var(--muted);font-size:14px} footer a{text-decoration:underline;color:var(--muted)}
-    #debug{white-space:pre-wrap;border:1px solid var(--border);border-radius:10px;padding:10px;background:#fff;margin-top:10px;display:none}
-  </style>
-</head>
-<body>
-<div class="wrap">
-  <header>
-    <div class="row">
-      <div class="brand"><div class="logo"></div><div class="name">clinxcode – AI Agents</div></div>
-      <nav class="nav">
-        <a href="#ergebnisse">Ergebnisse</a>
-        <a href="#branchen">Branchen</a>
-        <a href="#katalog">Agenten</a>
-        <a href="#pakete">Pakete</a>
-        <a href="#preise">Preise</a>
-        <a href="#sicherheit">Sicherheit</a>
-        <a href="#kontakt">Kontakt</a>
-      </nav>
-    </div>
-  </header>
+const $ = (sel)=>document.querySelector(sel);
+const el = (tag, cls)=>{const x=document.createElement(tag); if(cls) x.className=cls; return x;};
+const dbg = (m)=>{ const d=$('#debug'); if(!d) return; d.style.display='block'; d.textContent=String(m); };
 
-  <section class="hero">
-    <h1 id="hero-headline">Alles, was Sie brauchen, um mit KI zu skalieren.</h1>
-    <p class="sub" id="hero-sub">Wir liefern fertige AI-Agenten für Buchungen, Service und Bewertungen – schnell, sicher und messbar.</p>
-    <div class="cta">
-      <a class="btn primary" href="#preise" id="hero-cta-primary">Jetzt starten</a>
-      <a class="btn" id="hero-cta-secondary" href="https://calendly.com/clinxcode" target="_blank" rel="noopener">Beratungstermin buchen</a>
-    </div>
-    <pre id="debug"></pre>
-  </section>
+async function loadJSON(path){
+  const r = await fetch(path, {cache:'no-store'});
+  if(!r.ok) throw new Error(`Fetch failed: ${path} → ${r.status}`);
+  return r.json();
+}
 
-  <section id="ergebnisse" class="section">
-    <h2>Nachweisbare Ergebnisse</h2>
-    <p class="sub" id="erg-intro"></p>
-    <div class="grid" id="erg-grid"></div>
-    <p class="sub" id="erg-note"></p>
-  </section>
+(async ()=>{
+  try{
+    const [hero, erg, branchen, agents, pakete, preise, sicherheit, faq, kontakt] = await Promise.all([
+      loadJSON('content/hero.json'),
+      loadJSON('content/ergebnisse.json'),
+      loadJSON('content/branchen.json'),
+      loadJSON('content/agents.json'),
+      loadJSON('content/pakete.json'),
+      loadJSON('content/preise.json'),
+      loadJSON('content/sicherheit.json'),
+      loadJSON('content/faq.json'),
+      loadJSON('content/kontakt.json'),
+    ]);
 
-  <section id="branchen" class="section">
-    <h2>Für Ihre Branche optimiert</h2>
-    <div class="grid" id="branchen-grid"></div>
-  </section>
+    // HERO
+    $('#hero-headline').textContent = hero.headline;
+    $('#hero-sub').textContent = hero.subline;
+    const s2 = $('#hero-cta-secondary');
+    s2.textContent = hero.cta_secondary;
+    s2.href = hero.cta_secondary_link;
 
-  <section id="katalog" class="section">
-    <h2>Agenten-Katalog (Sofort einsatzbereit)</h2>
-    <div class="grid" id="agents-grid"></div>
-  </section>
+    // Ergebnisse
+    $('#erg-intro').textContent = erg.intro;
+    const eg = $('#erg-grid');
+    erg.bullets.forEach(b=>{
+      const c=el('div','card col-4 ibox');
+      const i=el('div','icon'); i.textContent='✅';
+      const w=el('div'); const s=el('strong'); s.textContent=b.title;
+      const p=el('p'); p.className='sub'; p.textContent=b.text;
+      w.appendChild(s); w.appendChild(p); c.appendChild(i); c.appendChild(w); eg.appendChild(c);
+    });
+    $('#erg-note').textContent = erg.note || '';
 
-  <section id="pakete" class="section">
-    <h2>Pakete & Umfang</h2>
-    <div class="grid" id="pakete-grid"></div>
-  </section>
+    // Branchen
+    const bg = $('#branchen-grid');
+    branchen.categories.forEach(k=>{
+      const c=el('div','card col-4 ibox');
+      const i=el('div','icon'); i.textContent='🏷️';
+      const w=el('div'); const s=el('strong'); s.textContent=k.name;
+      const p=el('p'); p.className='sub'; p.textContent=k.text;
+      w.appendChild(s); w.appendChild(p); c.appendChild(i); c.appendChild(w); bg.appendChild(c);
+    });
 
-  <section id="preise" class="section">
-    <h2>Preise</h2>
-    <div class="grid" id="preise-grid"></div>
-    <p class="sub" id="preise-note"></p>
-  </section>
+    // Agenten
+    const ag = $('#agents-grid');
+    agents.items.forEach(a=>{
+      const c=el('div','card col-6'); const t=el('h3'); t.textContent = a.name;
+      const ul=el('ul','list'); [a.desc, 'Ergebnis: '+a.impact].forEach(txt=>{ const li=el('li'); li.textContent=txt; ul.appendChild(li); });
+      c.appendChild(t); c.appendChild(ul); ag.appendChild(c);
+    });
 
-  <section id="sicherheit" class="section">
-    <h2>Sicherheit & Betrieb (EU)</h2>
-    <div class="grid" id="sich-grid"></div>
-  </section>
+    // Pakete
+    const pg = $('#pakete-grid');
+    pakete.items.forEach(p=>{
+      const c=el('div','card col-4');
+      if(p.badge){ const b=el('div'); b.textContent=p.badge; b.style.cssText='background:#fef9c3;border:1px solid #fde68a;color:#713f12;padding:6px 10px;border-radius:999px;position:absolute;top:14px;right:14px'; c.appendChild(b); }
+      const t=el('h3'); t.textContent=p.title;
+      const ul=el('ul','list'); p.features.forEach(f=>{ const li=el('li'); li.textContent=f; ul.appendChild(li); });
+      c.appendChild(t); c.appendChild(ul); pg.appendChild(c);
+    });
 
-  <section id="kontakt" class="section">
-    <h2>Kontakt & FAQ</h2>
-    <div class="grid">
-      <div class="card col-6">
-        <h3>So erreichen Sie uns</h3>
-        <p><strong>Adresse:</strong> <span id="k-address"></span></p>
-        <p><strong>E-Mail:</strong> <a id="k-email"></a></p>
-        <p><strong>Telefon:</strong> <a id="k-phone"></a></p>
-        <div class="cta"><a class="btn primary" href="#preise">Jetzt starten</a><a class="btn" id="k-calendly" target="_blank" rel="noopener">Beratungstermin buchen</a></div>
-      </div>
-      <div class="card col-6">
-        <h3>Häufige Fragen</h3>
-        <ul class="list" id="faq-list"></ul>
-      </div>
-    </div>
-  </section>
+    // Preise
+    const prg = $('#preise-grid');
+    preise.plans.forEach(pl=>{
+      const c=el('div','card col-4');
+      if(pl.badge){ const b=el('div'); b.textContent=pl.badge; b.style.cssText='background:#fef9c3;border:1px solid #fde68a;color:#713f12;padding:6px 10px;border-radius:999px;position:absolute;top:14px;right:14px'; c.appendChild(b); }
+      const t=el('h3'); t.textContent=pl.title;
+      const price=el('div','price'); price.textContent=pl.price;
+      const incl=el('div','incl'); incl.textContent=pl.sms+' SMS inkl.';
+      const cta=el('div','cta');
+      const a1=el('a','btn primary'); a1.href=pl.start_url; a1.target='_blank'; a1.rel='noopener'; a1.textContent='Jetzt starten';
+      const a2=el('a','btn'); a2.href=pl.setup_url; a2.target='_blank'; a2.rel='noopener'; a2.textContent='Setup buchen';
+      cta.appendChild(a1); cta.appendChild(a2);
+      c.appendChild(t); c.appendChild(price); c.appendChild(incl); c.appendChild(cta); prg.appendChild(c);
+    });
+    $('#preise-note').textContent = preise.note;
 
-  <footer>© <span id="y"></span> clinxcode. Alle Rechte vorbehalten. · <a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a> · <a href="/agb.html">AGB</a> · <a href="/refund.html">Rückerstattung</a></footer>
-</div>
+    // Sicherheit
+    const sg = $('#sich-grid');
+    sicherheit.chips.forEach(ch=>{
+      const c=el('div','card col-4 ibox'); const i=el('div','icon'); i.textContent='🛡️';
+      const w=el('div'); const s=el('strong'); s.textContent=ch.title;
+      const p=el('p'); p.className='sub'; p.textContent=ch.text;
+      w.appendChild(s); w.appendChild(p); c.appendChild(i); c.appendChild(w); sg.appendChild(c);
+    });
 
-<script src="/app.js" defer></script>
-</body>
-</html>
+    // Kontakt
+    $('#k-address').textContent = kontakt.address;
+    $('#k-email').textContent = kontakt.email; $('#k-email').href = 'mailto:'+kontakt.email;
+    $('#k-phone').textContent = kontakt.phone; $('#k-phone').href = 'tel:'+kontakt.phone.replace(/\s+/g,'');
+    const kc = $('#k-calendly'); if (kc) kc.href = kontakt.calendly;
+    $('#y').textContent = new Date().getFullYear();
+  }catch(e){
+    console.error(e);
+    dbg(e && e.stack ? e.stack : e);
+  }
+})();
