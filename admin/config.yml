@@ -23,3 +23,128 @@ collections:
           - { label: Secondary CTA Text, name: cta_secondary, widget: string, default: "Beratungstermin buchen" }
           - { label: Secondary CTA Link, name: cta_secondary_link, widget: string, default: "https://calendly.com/clinxcode" }
           - { label: Hero Bild, name: hero_img, widget: image, choose_url: false, default: "/assets/hero.webp" }
+
+  - name: "ergebnisse"
+    label: "Ergebnisse"
+    files:
+      - name: "ergebnisse"
+        label: "Nachweisbare Ergebnisse"
+        file: "content/ergebnisse.json"
+        fields:
+          - { label: Intro, name: intro, widget: text }
+          - label: Punkte
+            name: bullets
+            widget: list
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Text, name: text, widget: text }
+          - { label: Beispiel-Notiz, name: note, widget: string, required: false }
+
+  - name: "branchen"
+    label: "Branchen"
+    files:
+      - name: "branchen"
+        label: "Branchenliste"
+        file: "content/branchen.json"
+        fields:
+          - label: Kategorien
+            name: categories
+            widget: list
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Kurztext, name: text, widget: text }
+              - { label: Icon/Bild, name: img, widget: image, required: false }
+
+  - name: "agents"
+    label: "Agenten"
+    files:
+      - name: "agents"
+        label: "Agenten-Katalog"
+        file: "content/agents.json"
+        fields:
+          - label: Agenten
+            name: items
+            widget: list
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Beschreibung, name: desc, widget: text }
+              - { label: Ergebnis, name: impact, widget: string }
+              - { label: Bild, name: img, widget: image, required: false }
+
+  - name: "pakete"
+    label: "Pakete & Umfang"
+    files:
+      - name: "pakete"
+        label: "Paket-Karten"
+        file: "content/pakete.json"
+        fields:
+          - label: Pakete
+            name: items
+            widget: list
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - label: Punkte
+                name: features
+                widget: list
+                summary: "{{fields.item}}"
+                field: { label: Punkt, name: item, widget: string }
+              - { label: Badge, name: badge, widget: string, required: false }
+
+  - name: "preise"
+    label: "Preise"
+    files:
+      - name: "preise"
+        label: "Preistablos"
+        file: "content/preise.json"
+        fields:
+          - label: Pläne
+            name: plans
+            widget: list
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Preis, name: price, widget: string }
+              - { label: SMS inkl., name: sms, widget: number }
+              - { label: Start-Link, name: start_url, widget: string }
+              - { label: Setup-Link, name: setup_url, widget: string }
+              - { label: Badge, name: badge, widget: string, required: false }
+          - { label: Mehrkosten-Notu, name: note, widget: text }
+
+  - name: "sicherheit"
+    label: "Sicherheit & Betrieb"
+    files:
+      - name: "sicherheit"
+        label: "Sicherheitskarten"
+        file: "content/sicherheit.json"
+        fields:
+          - label: Chips
+            name: chips
+            widget: list
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Text, name: text, widget: text }
+
+  - name: "faq"
+    label: "FAQ"
+    files:
+      - name: "faq"
+        label: "Sıkça Sorulanlar"
+        file: "content/faq.json"
+        fields:
+          - label: Sorular
+            name: items
+            widget: list
+            fields:
+              - { label: Soru, name: q, widget: string }
+              - { label: Cevap, name: a, widget: text }
+
+  - name: "kontakt"
+    label: "Kontakt"
+    files:
+      - name: "kontakt"
+        label: "İletişim"
+        file: "content/kontakt.json"
+        fields:
+          - { label: Adresse, name: address, widget: string }
+          - { label: E-Mail, name: email, widget: string }
+          - { label: Telefon, name: phone, widget: string }
+          - { label: Calendly, name: calendly, widget: string, default: "https://calendly.com/clinxcode" }
