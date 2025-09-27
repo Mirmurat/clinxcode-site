@@ -1,50 +1,12 @@
-<!-- /admin/index.html (minimal, stabil) -->
 <!doctype html>
 <html lang="de">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CLINXCODE Admin</title>
-<!-- Cloudflare: Rocket Loader/Auto-Minify JS kapalı olmalı -->
-<meta http-equiv="Cache-Control" content="no-store" />
-<!-- /admin için CSP: inline/eval ve blob izinli -->
-<!-- Header tarafında zaten veriyorsun; burada fallback: -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; connect-src 'self' https://api.github.com https://github.com; worker-src blob:; frame-ancestors 'self';">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>clinxcode Admin</title>
+  <!-- Decap CMS self-host; dosyalar: /admin/decap-cms.js ve /admin/init.js -->
+  <script src="/admin/decap-cms.js?v=1" defer></script>
+  <script src="/admin/init.js?v=1" defer></script>
 </head>
-<body>
-<div id="nc-root"></div>
-<!-- Sürüm sabitle: Decap CMS 3.x (CDN) -->
-<script src="https://unpkg.com/decap-cms@^3.3.0/dist/decap-cms.js"></script>
-<script>
-// Basit init — özel preview/stylesheet yok (removeChild hatalarını önler)
-window.CMS_MANUAL_INIT = true;
-window.addEventListener('DOMContentLoaded', () => {
-const config = {
-backend: {
-name: 'github',
-repo: 'Mirmurat/clinxcode-site',
-branch: 'main',
-base_url: 'https://clinxcode.com',
-auth_endpoint: '/oauth'
-},
-load_config_file: false,
-media_folder: 'static/uploads',
-public_folder: '/uploads',
-local_backend: false,
-collections: [
-{ name:'hero', label:'Hero', format:'json', files:[{ name:'hero', label:'Hero', file:'content/hero.json', fields:[{name:'headline',label:'Headline',widget:'string'},{name:'subline',label:'Subline',widget:'text'}] }]},
-{ name:'ergebnisse', label:'Ergebnisse', format:'json', files:[{ name:'ergebnisse', label:'Ergebnisse', file:'content/ergebnisse.json', fields:[{name:'kpis',label:'KPIs',widget:'list',fields:[{name:'value',label:'Wert',widget:'string'},{name:'label',label:'Label',widget:'string'}]}] }]},
-{ name:'branchen', label:'Branchen', format:'json', files:[{ name:'branchen', label:'Branchen', file:'content/branchen.json', fields:[{name:'list',label:'Liste',widget:'list',fields:[{name:'name',label:'Name',widget:'string'},{name:'desc',label:'Beschreibung',widget:'text'}]}] }]},
-{ name:'agents', label:'Agenten', format:'json', files:[{ name:'agents', label:'Agenten', file:'content/agents.json', fields:[{name:'list',label:'Liste',widget:'list',fields:[{name:'name',label:'Name',widget:'string'},{name:'benefit',label:'Nutzen',widget:'text'}]}] }]},
-{ name:'pakete', label:'Pakete & Umfang', format:'json', files:[{ name:'pakete', label:'Pakete', file:'content/pakete.json', fields:[{name:'features',label:'Features',widget:'list',fields:[{name:'title',label:'Titel',widget:'string'},{name:'points',label:'Punkte',widget:'list',field:{name:'punkt',label:'Punkt',widget:'string'}}]}] }]},
-{ name:'preise', label:'Preise', format:'json', files:[{ name:'preise', label:'Preise', file:'content/preise.json', fields:[{name:'pakete',label:'Pakete',widget:'list',fields:[{name:'name',label:'Name',widget:'string'},{name:'sms',label:'SMS/WA p.M.',widget:'number'},{name:'badge',label:'Badge',widget:'string',required:false},{name:'price',label:'Preis',widget:'string'},{name:'start',label:'Start (Stripe)',widget:'string'},{name:'setup',label:'Setup (Stripe)',widget:'string'}]},{name:'hinweis',label:'Hinweis',widget:'text',required:false},{name:'addon_ai_site',label:'Add‑on AI Site',widget:'object',required:false,fields:[{name:'monthly',label:'Monatlich',widget:'string'},{name:'one_time',label:'Einmalig',widget:'string'},{name:'note',label:'Notiz',widget:'string',required:false}]}]}] },
-{ name:'sicherheit', label:'Sicherheit', format:'json', files:[{ name:'sicherheit', label:'Sicherheit', file:'content/sicherheit.json', fields:[{name:'items',label:'Items',widget:'list',fields:[{name:'title',label:'Titel',widget:'string'},{name:'desc',label:'Beschreibung',widget:'text'}]}] }]},
-{ name:'faq', label:'FAQ', format:'json', files:[{ name:'faq', label:'FAQ', file:'content/faq.json', fields:[{name:'list',label:'Fragen',widget:'list',fields:[{name:'q',label:'Frage',widget:'string'},{name:'a',label:'Antwort',widget:'text'}]}] }]},
-{ name:'kontakt', label:'Kontakt', format:'json', files:[{ name:'kontakt', label:'Kontakt', file:'content/kontakt.json', fields:[{name:'email',label:'E‑Mail',widget:'string'},{name:'phone',label:'Telefon',widget:'string'},{name:'address',label:'Adresse',widget:'string'},{name:'calendly',label:'Calendly URL',widget:'string'}]}]}
-]
-};
-window.CMS.init({config});
-});
-</script>
-</body>
+<body></body>
 </html>
