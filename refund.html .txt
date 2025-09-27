@@ -1,0 +1,19 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Widerruf & Rückerstattung | Clinxcode</title>
+<style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;line-height:1.6;margin:2rem;max-width:860px}h1{font-size:1.8rem;margin-bottom:.5rem}.box{background:#f7f7f7;padding:1rem;border-radius:.5rem}small,footer{color:#666}a{color:#0a6}</style>
+</head><body>
+<header><small>Clinxcode</small></header>
+<h1>Widerruf & Rückerstattung</h1>
+<div class="box">Regeln für einmalige Setups und Abonnements.</div>
+<section>
+<h2>Widerrufsrecht</h2><p>Bei digitalen Dienstleistungen kann das Widerrufsrecht erlöschen, sobald mit der Ausführung begonnen wurde.</p>
+<h2>Rückerstattung</h2>
+<ul>
+<li>Setup (einmalig): Nach Beginn der Umsetzung nur anteilig oder keine Erstattung.</li>
+<li>Abonnement (monatlich): Anteilig bis Laufzeitende, keine Erstattung für verbrauchte Kontingente.</li>
+</ul>
+</section>
+<footer><small>Version: v1.0 · Stand: <!-- YYYY-MM-DD --></small></footer>
+</body></html>
