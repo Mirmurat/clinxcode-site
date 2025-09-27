@@ -1,0 +1,18 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>AGB | Clinxcode</title>
+<style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;line-height:1.6;margin:2rem;max-width:860px}h1{font-size:1.8rem;margin-bottom:.5rem}.box{background:#f7f7f7;padding:1rem;border-radius:.5rem}small,footer{color:#666}a{color:#0a6}</style>
+</head><body>
+<header><small>Clinxcode</small></header>
+<h1>Allgemeine Geschäftsbedingungen (AGB)</h1>
+<div class="box">Regeln zur Nutzung unserer Managed AI-Agenten (SaaS).</div>
+<section>
+<h2>Leistungsumfang</h2><p>Bereitstellung von vorkonfigurierten AI-Agenten inkl. Betrieb, Updates und Support (Managed).</p>
+<h2>Laufzeit &amp; Kündigung</h2><p>Monatlich kündbar zum Laufzeitende.</p>
+<h2>Fair-Use / Limits</h2><p>SMS/WA/LLM-Kontingente je Paket; darüber Auto-Lite Mode bzw. Drosselung.</p>
+<h2>Haftung</h2><p>Best-effort; Haftung im gesetzlichen Rahmen.</p>
+<h2>Support &amp; SLA</h2><p>P1: Erstreaktion ≤ 5 Min., Lösung ≤ 4 Std.</p>
+</section>
+<footer><small>Version: v1.0 · Stand: <!-- YYYY-MM-DD --></small></footer>
+</body></html>
