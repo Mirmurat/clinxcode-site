@@ -1,7 +1,11 @@
 {
   "categories": [
-    {"name":"Hotels & Restaurants","text":"Buchungen, Upsells, Bewertungen"},
-    {"name":"Beauty & Friseure","text":"Termin-Bestätigung, Rebooking"},
-    {"name":"Gesundheit & Kliniken","text":"DSGVO-konforme Erinnerungen"}
+    { "name": "Hotels & Restaurants", "text": "Buchungen, Upsells, Bewertungen" },
+    { "name": "Beauty & Friseure", "text": "Termin-Bestätigung, Rebooking" },
+    { "name": "Gesundheit & Kliniken", "text": "DSGVO-konforme Erinnerungen" },
+    { "name": "Einzelhandel & Industrie", "text": "Lead-Qualifizierung, Service-Chat" },
+    { "name": "B2B / Import-Export", "text": "Angebote, Status-Updates, Dokument-Assistenz" },
+    { "name": "Fitness & Wellness", "text": "Mitgliedschafts-Flows, Reviews, Rückgewinnung" }
   ]
 }
+
