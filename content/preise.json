@@ -1,12 +1,18 @@
 {
   "plans": [
     {
-      "title": "Basic",
-      "price": "€129/Monat",
-      "sms": 80,
-      "start_url": "https://buy.stripe.com/bJecN6cnl9cHbF7cxWdEs01",
-      "setup_url": "https://buy.stripe.com/bJefZi3QPcoT9wZ69ydEs04"
-    },
+    {
+  "title": "Basic",
+  "code": "basic",
+  "price": "€129/Monat",
+  "sms": 80,
+  "start_url": "https://buy.stripe.com/eVq6oIdrpbkP8sVapOdEs0a",
+  "start": "https://buy.stripe.com/DEGIS-TIR_BASIC_MONTHLY_V1",
+  "setup_url": "https://buy.stripe.com/bJefZi3QPcoT9wZ69ydEs04",
+  "setup": "https://buy.stripe.com/bJefZi3QPcoT9wZ69ydEs04",
+  "product_id_setup": "prod_T7YPnAwVEyWEIs",
+  "product_id_monthly": "prod_T7TbH91grx1CNN"
+},
     {
       "title": "Pro Essentials",
       "price": "€219/Monat",
