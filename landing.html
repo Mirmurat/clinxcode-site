@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="tr" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Özel AI Ajanları — clinxcode</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors:{ bg1:"#0a0a0a", bg2:"#111111", card:"#1a1a1a", cardhover:"#222222",
+            accent:{blue:"#3b82f6", purple:"#8b5cf6", green:"#10b981"},
+            text:{primary:"#ffffff", secondary:"#9ca3af", muted:"#6b7280"},
+            border:{subtle:"#2d2d2d"},
+          },
+          boxShadow:{ glow:"0 20px 40px rgba(59,130,246,.12)", btn:"0 10px 30px rgba(59,130,246,.35)"}
+        }
+      }
+    }
+  </script>
+
+  <!-- React + ReactDOM + Babel -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Plausible -->
+  <script defer data-domain="clinxcode.com" src="https://plausible.io/js/script.js"></script>
+
+  <style>
+    html,body{background:#0a0a0a;color:#fff}
+    .card{background:#1a1a1a;border:1px solid #2d2d2d;border-radius:16px;padding:32px;transition:.3s}
+    .card:hover{background:#222222;transform:translateY(-4px);box-shadow:0 20px 40px rgba(59,130,246,.12)}
+    .btn-primary{background:linear-gradient(135deg,#3b82f6,#8b5cf6);padding:14px 28px;border-radius:10px;font-weight:600;transition:.2s}
+    .btn-primary:hover{transform:scale(1.04);box-shadow:0 10px 30px rgba(59,130,246,.45)}
+    .btn-outline{border:1px solid #2d2d2d;padding:12px 24px;border-radius:10px}
+    .chip{border:1px solid #2d2d2d;padding:6px 10px;border-radius:9999px;font-size:12px;color:#9ca3af}
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const {useEffect,useRef,useState} = React;
+
+    // ---- Senin n8n uçların (verdiğin) ----
+    const CONTACT_WEBHOOK = "https://n8n.clinxcode.com/webhook/bf48b572-e20f-44fb-b0be-7e2d774b1cdc";
+    const CHATBOT_WEBHOOK  = "https://n8n.clinxcode.com/webhook/4eec2092-696b-4c1a-9428-20e147209388";
+    // Not: Stripe webhook (server) zaten n8n: https://n8n.clinxcode.com/webhook/stripe
+
+    // ---- CTA fallback (Calendly yoksa form) ----
+    const CTA_LINK = "#contact";
+
+    // ---- İçerik (statik) ----
+    const services = [
+      {icon:"Target", title:"Müşteri Bulma Ajanı", description:"LinkedIn + scraping + outreach ile nitelikli müşteri.",
+       features:["Otomatik lead","LinkedIn scraping","Email/WhatsApp outreach","CRM entegrasyonu"], price:"€349", period:"/ay"},
+      {icon:"MessageSquare", title:"Web Sitesi Chatbot Ajanı", description:"7/24 destek, öneri, randevu.",
+       features:["24/7 destek","Akıllı öneri","Randevu sistemi","Çoklu dil"], price:"€299", period:"/ay", popular:true},
+      {icon:"Share2", title:"Sosyal Medya Ajanı", description:"İçerik üretimi, otomatik paylaşım, analiz.",
+       features:["AI içerik","Zamanlama","Hashtag optimizasyonu","Raporlar"], price:"€349", period:"/ay"},
+      {icon:"Sparkles", title:"Özel Ajan Geliştirme", description:"Tamamen ihtiyaca özel.",
+       features:["Sınırsız özelleştirme","Tüm platformlar","Premium destek","Sürekli optimizasyon"], price:"Teklif", period:"alın"}
+    ];
+
+    // ---- Pricing planları (fiyat ve isim sabit); ödeme linkleri runtime'da /content/preise.json'dan okunur ----
+    const basePlans = [
+      { key:"Starter",       price:"€299", desc:"Küçük işletmeler için",      features:["1 AI Ajanı","Email + WhatsApp destek","Aylık rapor","Temel entegrasyonlar","Community support"], popular:false },
+      { key:"Professional",  price:"€549", desc:"Büyüyen işletmeler için",    features:["3 AI Ajanı","Öncelikli destek","Haftalık raporlar","Gelişmiş entegrasyonlar","Video çağrısı","Özel eğitim"], popular:true  },
+      { key:"Enterprise",    price:"Özel", desc:"Kurumsal çözümler",           features:["Sınırsız ajan","7/24 dedicated support","Günlük rapor","Özel entegrasyonlar","SLA","Danışmanlık"], contact:true }
+    ];
+
+    // ---- Yardımcılar ----
+    const Icon = ({name, className="w-5 h-5"}) => <i data-lucide={name} className={className} />;
+    const SectionTitle = ({eyebrow,title,subtitle}) => (
+      <div className="text-center mb-10">
+        {eyebrow && <div className="chip inline-block">{eyebrow}</div>}
+        <h2 className="mt-3 text-3xl md:text-4xl font-semibold">{title}</h2>
+        {subtitle && <p className="mt-3 text-text-secondary max-w-2xl mx-auto">{subtitle}</p>}
+      </div>
+    );
+
+    // ---- Navbar ----
+    const Nav = () => (
+      <header className="sticky top-0 z-40 bg-bg1/70 backdrop-blur border-b border-border-subtle">
+        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+          <a href="/" className="font-semibold tracking-tight">clinxcode</a>
+          <nav className="hidden md:flex items-center gap-6 text-sm text-text-secondary">
+            <a href="#services" className="hover:text-white">Hizmetler</a>
+            <a href="#features" className="hover:text-white">Özellikler</a>
+            <a href="#pricing" className="hover:text-white">Fiyatlar</a>
+            <a href="#faq" className="hover:text-white">SSS</a>
+            <a href="#contact" className="hover:text-white">İletişim</a>
+          </nav>
+          <div className="flex items-center gap-3">
+            <a href={CTA_LINK} className="btn-outline hidden md:inline-block">Ücretsiz Danışma</a>
+            <a href="#pricing" className="btn-primary inline-block">Hemen Başla</a>
+          </div>
+        </div>
+      </header>
+    );
+
+    // ---- Hero ----
+    const Hero = () => (
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none"
+             style={{background:"radial-gradient(600px 300px at 50% -20%, rgba(59,130,246,.25), transparent)"}}/>
+        <div className="max-w-6xl mx-auto px-4 py-20 md:py-24">
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <div>
+              <div className="chip mb-4 inline-flex items-center gap-2"><Icon name="Sparkles" /> Yapay Zeka Ajanları</div>
+              <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+                İşletmeniz İçin <span className="text-accent-blue">Özel AI Ajanları</span>
+              </h1>
+              <p className="mt-4 text-lg text-text-secondary">
+                n8n ile geliştirilmiş, 7/24 çalışan, tamamen otomatik yapay zeka ajanları.
+                Müşteri bulun, satış yapın, destek verin — hepsi otomatik.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a href={CTA_LINK} className="btn-primary flex items-center gap-2">
+                  <Icon name="Calendar" /> Ücretsiz Danışma Al
+                </a>
+                <a href="#services" className="btn-outline flex items-center gap-2">
+                  <Icon name="Layers" /> Hizmetleri İncele
+                </a>
+              </div>
+              <div className="mt-6 text-sm text-text-muted flex items-center gap-4">
+                <div className="flex items-center gap-1"><Icon name="ShieldCheck" /> GDPR uyumlu</div>
+                <div className="flex items-center gap-1"><Icon name="Server" /> Hetzner Avrupa</div>
+                <div className="flex items-center gap-1"><Icon name="BarChart3" /> Ölçülebilir sonuçlar</div>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="card">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2"><Icon name="Bot" /><span className="text-text-secondary">Ajan Paneli</span></div>
+                  <span className="chip">Canlı</span>
+                </div>
+                <div className="mt-6 grid grid-cols-3 gap-3">
+                  {["Leads","Sohbet","Satış"].map((k,i)=>(
+                    <div key={i} className="p-4 rounded-xl bg-bg2 border border-border-subtle">
+                      <p className="text-sm text-text-secondary">{k}</p>
+                      <p className="text-2xl font-semibold mt-1">{[32,124,7][i]}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6 p-4 rounded-xl bg-bg2 border border-border-subtle">
+                  <p className="text-sm text-text-secondary mb-2">Günlük Aktivite</p>
+                  <div className="h-24 w-full rounded bg-[linear-gradient(90deg,transparent,rgba(59,130,246,.25),transparent)]"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+    // ---- Services ----
+    const Services = ()=>(
+      <section id="services" className="py-16 md:py-20">
+        <div className="max-w-6xl mx-auto px-4">
+          <SectionTitle eyebrow="Hizmetler" title="İhtiyacınıza uygun AI ajanları" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {services.map((s,idx)=>(
+              <div key={idx} className={`card ${s.popular ? "ring-1 ring-accent-blue/30" : ""}`}>
+                <div className="flex items-center gap-3">
+                  <span className="p-2 rounded-lg bg-bg2 border border-border-subtle"><Icon name={s.icon} className="w-5 h-5"/></span>
+                  <h3 className="text-lg font-semibold">{s.title}</h3>
+                </div>
+                <p className="mt-3 text-sm text-text-secondary">{s.description}</p>
+                <ul className="mt-4 space-y-2 text-sm">
+                  {s.features.map((f,i)=>(<li key={i} className="flex items-center gap-2"><Icon name="CheckCircle2" /> {f}</li>))}
+                </ul>
+                <div className="mt-5 flex items-center justify-between">
+                  <div className="text-xl font-semibold">{s.price} <span className="text-sm text-text-secondary">{s.period}</span></div>
+                  <a href="#pricing" className="btn-outline text-sm">Planı Gör</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+
+    // ---- Features ----
+    const Features = ()=>(
+      <section id="features" className="py-16 md:py-20">
+        <div className="max-w-6xl mx-auto px-4">
+          <SectionTitle eyebrow="Özellikler" title="Güçlü altyapı, gerçek sonuçlar" />
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              {t:"n8n ile Geliştirildi",d:"No-code platform ile esnek, güçlü ajanlar."},
+              {t:"7/24 Çalışır",d:"Tatil günlerinde bile müşteri ve destek akışı."},
+              {t:"Ölçülebilir Sonuçlar",d:"Aylık raporlar ve sürekli iyileştirme."},
+              {t:"Hetzner Altyapısı",d:"Avrupa merkezli, GDPR uyumlu ve hızlı."}
+            ].map((f,i)=>(
+              <div className="card" key={i}>
+                <div className="flex items-center gap-2"><Icon name="Sparkle"/><h3 className="text-lg font-semibold">{f.t}</h3></div>
+                <p className="mt-2 text-text-secondary">{f.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+
+    // ---- Pricing (Stripe linklerini runtime'da çeker) ----
+    const Pricing = ()=>{
+      const [plans,setPlans] = useState(basePlans);
+
+      useEffect(()=>{
+        // clinxcode repo yapısı: content/preise.json => { plans: [ { title, price, start_url, setup_url, ... } ] }
+        async function loadStripeLinks(){
+          try {
+            const res = await fetch("/content/preise.json", { cache:"no-store" });
+            if(!res.ok) return;
+            const data = await res.json();
+            // eşle: title -> start_url
+            const links = {};
+            (data.plans||[]).forEach(p=>{
+              if (p.title) links[p.title.trim().toLowerCase()] = { start:p.start_url, setup:p.setup_url, price:p.price, badge:p.badge };
+            });
+            setPlans(prev => prev.map(pl=>{
+              const key = pl.key.trim().toLowerCase();
+              const lnk = links[key];
+              return lnk ? { ...pl, dynamicPrice: lnk.price || pl.price, paymentLink: lnk.start, setupLink: lnk.setup, badge: lnk.badge } : pl;
+            }));
+          } catch(_){}
+        }
+        loadStripeLinks();
+      },[]);
+
+      function go(link){ if(link) window.location.href = link; else alert("Ödeme linki bulunamadı."); }
+
+      return (
+        <section id="pricing" className="py-16 md:py-20">
+          <div className="max-w-6xl mx-auto px-4">
+            <SectionTitle eyebrow="Fiyatlandırma" title="Kurulum ücreti yok — sadece aylık" />
+            <div className="grid md:grid-cols-3 gap-6">
+              {plans.map((p,i)=>(
+                <div key={i} className={`card ${p.popular?"ring-1 ring-accent-purple/30":""}`}>
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xl font-semibold">{p.key}</h3>
+                    {p.popular && <span className="chip text-accent-purple">En Popüler</span>}
+                    {p.badge && <span className="chip">{p.badge}</span>}
+                  </div>
+                  <div className="mt-2">
+                    <span className="text-3xl font-bold">{p.dynamicPrice || p.price}</span>
+                    {!p.contact && <span className="text-sm text-text-secondary"> / ay</span>}
+                  </div>
+                  <p className="mt-2 text-text-secondary">{p.desc}</p>
+                  <ul className="mt-4 space-y-2 text-sm">
+                    {p.features.map((f,idx)=>(<li key={idx} className="flex items-center gap-2"><Icon name="Check" /> {f}</li>))}
+                  </ul>
+                  <div className="mt-6">
+                    {p.contact ? (
+                      <a href={CTA_LINK} className="btn-outline w-full inline-flex items-center justify-center gap-2">
+                        <Icon name="Phone" /> İletişime Geç
+                      </a>
+                    ) : (
+                      <button onClick={()=>go(p.paymentLink)} className="btn-primary w-full inline-flex items-center justify-center gap-2">
+                        <Icon name="CreditCard" /> Hemen Başla
+                      </button>
+                    )}
+                  </div>
+                  {p.setupLink && (
+                    <a href={p.setupLink} className="mt-3 inline-block text-sm text-text-secondary underline">Kurulum adımı</a>
+                  )}
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-text-muted mt-4">
+              Fiyatlara KDV dâhil değildir. Abonelik aylık yenilenir. 14 gün cayma hakkı mevcuttur.
+            </p>
+          </div>
+        </section>
+      );
+    };
+
+    // ---- FAQ ----
+    const FAQ = ()=>(
+      <section id="faq" className="py-16 md:py-20">
+        <div className="max-w-5xl mx-auto px-4">
+          <SectionTitle eyebrow="SSS" title="Sıkça Sorulan Sorular" />
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              {q:"İlk kurulum ne kadar sürer?",a:"7–14 gün içinde ajanınız çalışır."},
+              {q:"İptal etmek istersem?",a:"Aylık abonelik; istediğiniz zaman iptal. 14 gün cayma hakkı."},
+              {q:"Hangi platformlarla entegre olur?",a:"n8n 300+ uygulama ile entegre (Slack, WhatsApp, CRM'ler…)."}
+            ].map((f,i)=>(
+              <div className="card" key={i}>
+                <h4 className="font-semibold">{f.q}</h4>
+                <p className="mt-2 text-text-secondary">{f.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+
+    // ---- Contact ----
+    const Contact = ()=>{
+      const [loading,setLoading] = useState(false);
+      const [done,setDone] = useState(false);
+      const formRef = useRef(null);
+
+      async function onSubmit(e){
+        e.preventDefault(); setLoading(true);
+        const data = Object.fromEntries(new FormData(formRef.current).entries());
+        try{
+          await fetch(CONTACT_WEBHOOK, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(data) });
+          setDone(true);
+        }catch(_){ alert("Gönderilemedi. Lütfen daha sonra deneyin."); }
+        finally{ setLoading(false); }
+      }
+
+      return (
+        <section id="contact" className="py-16 md:py-20">
+          <div className="max-w-4xl mx-auto px-4">
+            <SectionTitle eyebrow="İletişim" title="Projenizi 15 dakikada değerlendirelim" />
+            <form ref={formRef} onSubmit={onSubmit} className="card space-y-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div><label className="text-sm text-text-secondary">Ad Soyad</label><input name="fullName" required className="w-full mt-1 bg-bg2 border border-border-subtle rounded-xl p-3"/></div>
+                <div><label className="text-sm text-text-secondary">E-posta</label><input name="email" type="email" required className="w-full mt-1 bg-bg2 border border-border-subtle rounded-xl p-3"/></div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div><label className="text-sm text-text-secondary">Telefon (WhatsApp)</label><input name="phone" className="w-full mt-1 bg-bg2 border border-border-subtle rounded-xl p-3"/></div>
+                <div><label className="text-sm text-text-secondary">Şirket</label><input name="company" className="w-full mt-1 bg-bg2 border border-border-subtle rounded-xl p-3"/></div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm text-text-secondary">İlgilendiğiniz Hizmet</label>
+                  <select name="service" className="w-full mt-1 bg-bg2 border border-border-subtle rounded-xl p-3">
+                    <option>Müşteri Bulma</option><option>Web Sitesi Chatbot</option><option>Sosyal Medya</option><option>Özel Ajan</option>
+                  </select>
+                </div>
+                <div><label className="text-sm text-text-secondary">Takvim Linki (opsiyonel)</label><input name="calendar" placeholder="https://…" className="w-full mt-1 bg-bg2 border border-border-subtle rounded-xl p-3"/></div>
+              </div>
+              <div><label className="text-sm text-text-secondary">Mesajınız</label><textarea name="message" rows="4" className="w-full mt-1 bg-bg2 border border-border-subtle rounded-xl p-3"></textarea></div>
+              <div className="flex items-center gap-3">
+                <button disabled={loading} className="btn-primary inline-flex items-center gap-2"><i data-lucide="Send"></i> {loading?"Gönderiliyor...":"Gönder"}</button>
+                <a href={CTA_LINK} className="btn-outline inline-flex items-center gap-2"><i data-lucide="CalendarClock"></i> Danışma Planla</a>
+                {done && <span className="text-sm text-accent-green">Teşekkürler! En kısa sürede dönüş yapacağız.</span>}
+              </div>
+            </form>
+          </div>
+        </section>
+      );
+    };
+
+    // ---- Chatbot ----
+    const Chatbot = ()=>{
+      const [open,setOpen]=useState(false);
+      const [input,setInput]=useState("");
+      const [msgs,setMsgs]=useState([
+        {from:"bot", text:"Merhaba! Size nasıl yardımcı olabilirim?"},
+        {from:"bot", text:"Hızlı: Fiyatlar • Toplantı • Özel ajan • Referanslar"}
+      ]);
+
+      async function sendMessage(message){
+        const payload = { message, timestamp:new Date(), sessionId: crypto.randomUUID() };
+        try{
+          const res = await fetch(CHATBOT_WEBHOOK, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(payload) });
+          const data = await res.json();
+          setMsgs(m=>[...m, {from:"bot", text: (data.reply || "Takvimden hızlıca bir görüşme planlayalım mı?")}]);
+        }catch(_){
+          setMsgs(m=>[...m, {from:"bot", text:"Şu an yanıt veremiyorum. Lütfen formu kullanın veya görüşme planlayın."}]);
+        }
+      }
+      function onSubmit(e){ e.preventDefault(); if(!input.trim()) return; const m=input.trim(); setMsgs(x=>[...x,{from:"me",text:m}]); setInput(""); sendMessage(m); }
+
+      return (
+        <>
+          <button onClick={()=>setOpen(true)} className="fixed bottom-5 right-5 btn-primary inline-flex items-center gap-2 shadow-btn" aria-label="Chatbotu aç"><i data-lucide="MessageSquare"></i> Sohbet</button>
+          {open && (
+            <div className="fixed inset-0 bg-black/50 z-50 flex items-end md:items-center justify-center">
+              <div className="w-full md:max-w-md card">
+                <div className="flex items-center justify-between"><div className="flex items-center gap-2"><i data-lucide="Bot"></i><strong>clinxcode Chatbot</strong></div><button onClick={()=>setOpen(false)} className="text-text-secondary hover:text-white"><i data-lucide="X"></i></button></div>
+                <div className="mt-3 h-72 overflow-y-auto space-y-2">
+                  {msgs.map((m,i)=>(<div key={i} className={`p-2 rounded ${m.from==="me"?"bg-accent-blue/10":"bg-bg2 text-text-secondary"}`}>{m.text}</div>))}
+                </div>
+                <form onSubmit={onSubmit} className="mt-3 flex items-center gap-2">
+                  <input value={input} onChange={e=>setInput(e.target.value)} placeholder="Mesajınızı yazın…" className="flex-1 bg-bg2 border border-border-subtle rounded-xl p-3"/>
+                  <button className="btn-primary inline-flex items-center gap-2"><i data-lucide="Send"></i> Gönder</button>
+                </form>
+              </div>
+            </div>
+          )}
+        </>
+      );
+    };
+
+    // ---- Footer ----
+    const Footer = ()=>(
+      <footer className="py-10 border-t border-border-subtle">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-text-secondary">
+          <div className="flex items-center gap-2"><i data-lucide="Copyright"></i> {new Date().getFullYear()} clinxcode · Wien, Österreich</div>
+          <nav className="flex items-center gap-4">
+            <a href="/impressum" className="hover:text-white">Impressum</a>
+            <a href="/datenschutz" className="hover:text-white">Datenschutz</a>
+            <a href="/agb" className="hover:text-white">AGB</a>
+            <a href="/refund" className="hover:text-white">Widerruf</a>
+          </nav>
+        </div>
+      </footer>
+    );
+
+    // ---- App ----
+    const App = ()=>{
+      useEffect(()=>{ if(window.lucide) window.lucide.createIcons(); });
+      return (<><Nav/><Hero/><Services/><Features/><Pricing/><FAQ/><Contact/><Footer/><Chatbot/></>);
+    };
+    ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+  </script>
+</body>
+</html>
